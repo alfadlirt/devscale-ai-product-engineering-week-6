@@ -1,0 +1,13 @@
+packages:
+  - "apps/**"
+  - "packages/**"
+
+minimumReleaseAge: 0
+
+hoistWorkspacePackages: false
+
+allowBuilds:
+  "@prisma/engines": true
+  esbuild: true
+  prisma: true
+  protobufjs: true

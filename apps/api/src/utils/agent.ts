@@ -6,6 +6,10 @@ import {
   createPlaceAgent,
   createScheduleAgent,
   createReviewerAgent,
+  PREFERENCE_AGENT_TOOL_DESCRIPTION,
+  PLACE_AGENT_TOOL_DESCRIPTION,
+  SCHEDULE_AGENT_TOOL_DESCRIPTION,
+  REVIEWER_AGENT_TOOL_DESCRIPTION,
 } from "@devscale/agent";
 import { PrismaMemoryStore } from "@anvia/memory-prisma";
 
@@ -22,11 +26,20 @@ export function initAgent(memory: PrismaMemoryStore) {
     additionalTools: [
       preferenceAgent.asTool({
         name: "preference_agent",
-        description: "...",
+        description: PREFERENCE_AGENT_TOOL_DESCRIPTION,
       }),
-      placeAgent.asTool({ name: "place_agent", description: "..." }),
-      scheduleAgent.asTool({ name: "schedule_agent", description: "..." }),
-      reviewerAgent.asTool({ name: "reviewer_agent", description: "..." }),
+      placeAgent.asTool({
+        name: "place_agent",
+        description: PLACE_AGENT_TOOL_DESCRIPTION,
+      }),
+      scheduleAgent.asTool({
+        name: "schedule_agent",
+        description: SCHEDULE_AGENT_TOOL_DESCRIPTION,
+      }),
+      reviewerAgent.asTool({
+        name: "reviewer_agent",
+        description: REVIEWER_AGENT_TOOL_DESCRIPTION,
+      }),
       //   ...sandboxTools,
     ],
     tracing,

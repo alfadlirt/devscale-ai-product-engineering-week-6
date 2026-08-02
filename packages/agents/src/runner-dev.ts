@@ -4,6 +4,12 @@ import { tracing } from "./tracing.js";
 import { createSandboxTools, DockerSandbox } from "@anvia/sandbox";
 import { Studio } from "@anvia/studio";
 import { BASE_PLANNER_INSTRUCTIONS } from "./prompts/base-instructions.js";
+import {
+  PREFERENCE_AGENT_TOOL_DESCRIPTION,
+  PLACE_AGENT_TOOL_DESCRIPTION,
+  SCHEDULE_AGENT_TOOL_DESCRIPTION,
+  REVIEWER_AGENT_TOOL_DESCRIPTION,
+} from "./prompts/tool-descriptions.js";
 import { createPlaceAgent } from "./sub-agents/place/index.js";
 import { createScheduleAgent } from "./sub-agents/schedule/index.js";
 import { createPreferenceAgent } from "./sub-agents/preferance/index.js";
@@ -22,10 +28,22 @@ const mainAgent = createAgent({
   agentId: "main-agent",
   additionalInstructions: [BASE_PLANNER_INSTRUCTIONS],
   additionalTools: [
-    preferenceAgent.asTool({ name: "preference_agent", description: "..." }),
-    placeAgent.asTool({ name: "place_agent", description: "..." }),
-    scheduleAgent.asTool({ name: "schedule_agent", description: "..." }),
-    reviewerAgent.asTool({ name: "reviewer_agent", description: "..." }),
+    preferenceAgent.asTool({
+      name: "preference_agent",
+      description: PREFERENCE_AGENT_TOOL_DESCRIPTION,
+    }),
+    placeAgent.asTool({
+      name: "place_agent",
+      description: PLACE_AGENT_TOOL_DESCRIPTION,
+    }),
+    scheduleAgent.asTool({
+      name: "schedule_agent",
+      description: SCHEDULE_AGENT_TOOL_DESCRIPTION,
+    }),
+    reviewerAgent.asTool({
+      name: "reviewer_agent",
+      description: REVIEWER_AGENT_TOOL_DESCRIPTION,
+    }),
     ...sandboxTools,
   ],
   tracing,

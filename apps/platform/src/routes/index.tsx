@@ -15,6 +15,18 @@ async function fetchAgentSessions(): Promise<ChatSession[]> {
   const res = await fetch(`${API_BASE_URL}/chat`, {
     method: "GET",
   });
+
+  if (!res.ok) {
+    throw new Error(`Unable to load chats (HTTP ${res.status}).`);
+  }
+
+  const contentType = res.headers.get("content-type");
+  if (!contentType?.includes("application/json")) {
+    throw new Error(
+      "Unable to load chats. Check that the API is running and VITE_API_BASE_URL is configured.",
+    );
+  }
+
   const data = await res.json();
   return data;
 }

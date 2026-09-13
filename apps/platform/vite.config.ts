@@ -9,6 +9,11 @@ import tailwindcss from "@tailwindcss/vite";
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 const config = defineConfig({
+  server: {
+    proxy: {
+      "/api": "http://localhost:8000",
+    },
+  },
   resolve: {
     tsconfigPaths: true,
     alias: {

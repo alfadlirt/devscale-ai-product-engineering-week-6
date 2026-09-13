@@ -9,8 +9,10 @@ type ChatSession = {
   updatedAt: string;
 };
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
+
 async function fetchAgentSessions(): Promise<ChatSession[]> {
-  const res = await fetch("http://localhost:8000/api/chat", {
+  const res = await fetch(`${API_BASE_URL}/chat`, {
     method: "GET",
   });
   const data = await res.json();
@@ -35,7 +37,7 @@ function Home() {
     setError(undefined);
 
     try {
-      const res = await fetch("http://localhost:8000/api/chat/new", {
+      const res = await fetch(`${API_BASE_URL}/chat/new`, {
         method: "POST",
       });
 

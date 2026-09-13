@@ -17,11 +17,13 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { uploadDocument } from "../modules/attachment/api";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
+
 export const Route = createFileRoute("/$sessionId")({
   component: SessionChat,
   loader: async ({ params }) => {
     const res = await fetch(
-      `http://localhost:8000/api/chat/${params.sessionId}`,
+      `${API_BASE_URL}/chat/${params.sessionId}`,
     );
     const messages = await res.json();
     return messages;
@@ -110,7 +112,7 @@ function SessionChat() {
   const [uploadError, setUploadError] = useState<string>();
 
   const chat = useChat({
-    endpoint: `http://localhost:8000/api/chat/${sessionId}`,
+    endpoint: `${API_BASE_URL}/chat/${sessionId}`,
     initialMessages: initialMessagesFromMemory(messages),
   });
 

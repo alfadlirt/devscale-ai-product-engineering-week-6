@@ -1,0 +1,9 @@
+.git
+.gitignore
+.env
+.pnpm-store
+**/node_modules
+**/dist
+**/.turbo
+*.log
+README.md

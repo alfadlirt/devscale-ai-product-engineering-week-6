@@ -124,6 +124,43 @@ Open the UI, start a new chat, and describe the trip you want — for example:
 | `pnpm db:studio`   | Open Prisma Studio                   |
 | `pnpm runner:dev`  | Run the agent package runner locally |
 
+## Deploy with Docker Compose and Dokploy
+
+The repository includes a production Compose stack with three services:
+
+- `web`: Vite preview server serving the production frontend build.
+- `api`: Hono on Node, with Prisma migrations applied before startup.
+- `postgres`: PostgreSQL with a named volume for persistent application data.
+
+Configure separate Dokploy/Traefik domains for `web` and `api`. Route the frontend domain to container port `4173` and the API domain to container port `8000`. Do not publish PostgreSQL publicly. Set `VITE_API_BASE_URL` to the public API URL including `/api`, such as `https://api.example.com/api`, before building the frontend.
+
+### Required Dokploy environment variables
+
+Add these variables in the Dokploy Compose environment settings. Do not commit the values:
+
+```env
+OPENAI_API_KEY=...
+TAVILY_API_KEY=...
+POSTGRES_PASSWORD=use-a-long-random-password
+```
+
+The Compose file supplies the internal PostgreSQL `DATABASE_URL` from `POSTGRES_DB`, `POSTGRES_USER`, and `POSTGRES_PASSWORD`. To use an external PostgreSQL instance instead, set `DATABASE_URL` explicitly and remove or ignore the internal `postgres` service according to your Dokploy setup.
+
+Optional variables include `OPENAI_BASE_URL`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_BASE_URL`, `POSTGRES_DB`, `POSTGRES_USER`, and `VITE_API_BASE_URL`. Because Vite embeds this value into the frontend bundle, set it in Dokploy as a build argument or environment variable available during the image build. With separate Traefik domains, use a value such as `https://api.example.com/api`.
+
+### Local Compose
+
+Copy `.env.example` to `.env`, replace the placeholder secrets, then run:
+
+```bash
+docker compose config
+docker compose up --build -d
+```
+
+The UI is available at [http://localhost:4173](http://localhost:4173), and the API health endpoint is available at [http://localhost:8000/api/healthz](http://localhost:8000/api/healthz).
+
+The PostgreSQL volume is named `postgres_data`. Back it up before deleting the Compose project or changing the database configuration.
+
 ## Example output
 
 The final plan is Markdown with day tables:

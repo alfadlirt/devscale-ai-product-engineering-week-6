@@ -146,7 +146,7 @@ POSTGRES_PASSWORD=use-a-long-random-password
 
 The Compose file supplies the internal PostgreSQL `DATABASE_URL` from `POSTGRES_DB`, `POSTGRES_USER`, and `POSTGRES_PASSWORD`. To use an external PostgreSQL instance instead, set `DATABASE_URL` explicitly and remove or ignore the internal `postgres` service according to your Dokploy setup.
 
-Optional variables include `OPENAI_BASE_URL`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_BASE_URL`, `POSTGRES_DB`, `POSTGRES_USER`, and `VITE_API_BASE_URL`. Because Vite embeds this value into the frontend bundle, set it in Dokploy as a build argument or environment variable available during the image build. With separate Traefik domains, use a value such as `https://api.example.com/api`.
+Optional variables include `OPENAI_BASE_URL`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_BASE_URL`, `POSTGRES_DB`, `POSTGRES_USER`, `VITE_API_BASE_URL`, and `API_PROXY_TARGET`. Because Vite embeds `VITE_API_BASE_URL` into the frontend bundle, set it in Dokploy as a build argument or environment variable available during the image build. With separate Traefik domains, use a value such as `https://api.example.com/api`. If `VITE_API_BASE_URL` is left empty, the web container proxies `/api` internally to `http://api:8000`; override `API_PROXY_TARGET` only when the API service has a different reachable address.
 
 ### Local Compose
 

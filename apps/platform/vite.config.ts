@@ -7,14 +7,18 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
+const apiProxyTarget = process.env.API_PROXY_TARGET ?? "http://localhost:8000";
 
 const config = defineConfig({
   server: {
     proxy: {
-      "/api": "http://localhost:8000",
+      "/api": apiProxyTarget,
     },
   },
   preview: {
+    proxy: {
+      "/api": apiProxyTarget,
+    },
     allowedHosts: ["itinera.trufalworks.com"],
   },
   resolve: {

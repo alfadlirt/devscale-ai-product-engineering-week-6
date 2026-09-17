@@ -15,7 +15,7 @@ const config = defineConfig({
     },
   },
   preview: {
-    allowedHosts: ["itinera.trufalworks.com"],
+    allowedHosts: true,
   },
   resolve: {
     tsconfigPaths: true,

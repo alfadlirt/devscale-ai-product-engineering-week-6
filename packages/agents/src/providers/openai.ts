@@ -5,5 +5,5 @@ const openai = new OpenAIClient({
   baseUrl: process.env.OPENAI_BASE_URL,
 });
 
-// export const defaultModel = openai.completionModel("deepseek-v4-flash");
-export const defaultModel = openai.completionModel("grok-4.3");
+export const defaultModel = openai.completionModel("deepseek-v4-flash-0731");
+// export const defaultModel = openai.completionModel("grok-4.3");

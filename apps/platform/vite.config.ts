@@ -14,6 +14,9 @@ const config = defineConfig({
       "/api": "http://localhost:8000",
     },
   },
+  preview: {
+    allowedHosts: ["itinera.trufalworks.com"],
+  },
   resolve: {
     tsconfigPaths: true,
     alias: {

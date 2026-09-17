@@ -37,7 +37,7 @@ CMD ["sh", "-c", "pnpm exec prisma migrate deploy && pnpm start"]
 
 FROM base AS web
 COPY --from=builder /app/apps/platform/dist ./apps/platform/dist
-COPY --from=builder /app/apps/platform/vite.config.ts ./vite.config.ts
+COPY --from=builder /app/apps/platform/vite.config.ts ./apps/platform/vite.config.ts
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/platform/node_modules ./apps/platform/node_modules
 COPY --from=builder /app/apps/platform/package.json ./apps/platform/package.json

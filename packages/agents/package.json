@@ -2,13 +2,14 @@
   "name": "@devscale/agent",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "runner:dev": "pnpm with-env tsx ./src/runner-dev.ts",
     "with-env": "dotenv -e ../../.env --"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./dist/index.js"
   },
   "keywords": [],
   "author": "",
